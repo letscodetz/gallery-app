@@ -46,9 +46,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._http.getPicture().subscribe((data) => {
+      console.log('looking at data');
+      const imgUrl = data.items.map(item => {
+        const url = `https://drive.google.com/uc?id=${item.id}`;
+        return { image: url, description: 'image description'};
+      });
+      console.log(imgUrl);
       this.pictures = data;
+      this.imageArray = imgUrl;
     });
-    this.imageArray = this.gallery;
+    // this.imageArray = this.gallery;
   }
 
   ngOnChanges() {
